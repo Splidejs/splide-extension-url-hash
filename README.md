@@ -3,6 +3,8 @@ This is an extension of the [Splide](https://github.com/Splidejs/splide) slider 
 
 Also, an initial slide will correspond with the URL hash.
 
+* [Demo and Document](https://splidejs.com/url-hash-navigation/)
+
 ## Installation
 ### NPM(Recommended)
 1. Get the latest extension by NPM:
