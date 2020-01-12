@@ -1,7 +1,7 @@
 # URL Hash Navigation - Splide Extension
 This is an extension of the [Splide](https://github.com/Splidejs/splide) slider library for listening to hash change and move a slide to a slide having the hash name.
 
-Also, an initial slide will correspond with the URL hash and browser forward/back button moves a slider.
+Also, an initial slide will correspond with the URL hash.
 
 ## Installation
 ### NPM(Recommended)
