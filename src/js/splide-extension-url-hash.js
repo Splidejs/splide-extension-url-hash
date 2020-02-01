@@ -55,13 +55,13 @@ export default ( Splide, Components ) => {
 		} );
 
 		// Move the slider to the slide having the new hash.
-		window.addEventListener( 'hashchange', () => {
+		Splide.on( 'hashchange', () => {
 			const index = hashToIndex( window.location.hash );
 
 			if ( index !== false && Splide.index !== index ) {
 				Splide.go( index );
 			}
-		} );
+		}, window );
 	}
 
 	/**

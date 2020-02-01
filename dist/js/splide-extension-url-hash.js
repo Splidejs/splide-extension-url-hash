@@ -155,13 +155,13 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
       }
     }); // Move the slider to the slide having the new hash.
 
-    window.addEventListener('hashchange', function () {
+    Splide.on('hashchange', function () {
       var index = hashToIndex(window.location.hash);
 
       if (index !== false && Splide.index !== index) {
         Splide.go(index);
       }
-    });
+    }, window);
   }
   /**
    * Try to convert hash to the slide index.
