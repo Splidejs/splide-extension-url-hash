@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/splide-extension-url-hash",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The extension of Splide for URL hash navigation.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
