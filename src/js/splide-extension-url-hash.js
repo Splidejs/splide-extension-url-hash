@@ -40,7 +40,7 @@ export default ( Splide, Components ) => {
 	function bind() {
 		// Try to change URL with a hash of the active slide.
 		Splide.on( 'moved', newIndex => {
-			const hash = Components.Slides.getSlide( newIndex ).slide.getAttribute( HASH_ATTRIBUTE_NAME );
+			const hash = Components.Elements.getSlide( newIndex ).slide.getAttribute( HASH_ATTRIBUTE_NAME );
 
 			if ( ! hash ) {
 				if ( history ) {
@@ -78,8 +78,8 @@ export default ( Splide, Components ) => {
 			return false;
 		}
 
-		const Slide = Components.Slides.getSlides( false, true )
-			.find( Slide => Slide.slide.getAttribute( HASH_ATTRIBUTE_NAME ) === hash );
+		const Slide = Components.Elements.getSlides( false )
+			.filter( Slide => Slide.slide.getAttribute( HASH_ATTRIBUTE_NAME ) === hash )[0];
 
 		return Slide ? Slide.index : false;
 	}

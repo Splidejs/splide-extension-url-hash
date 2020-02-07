@@ -141,7 +141,7 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
   function bind() {
     // Try to change URL with a hash of the active slide.
     Splide.on('moved', function (newIndex) {
-      var hash = Components.Slides.getSlide(newIndex).slide.getAttribute(HASH_ATTRIBUTE_NAME);
+      var hash = Components.Elements.getSlide(newIndex).slide.getAttribute(HASH_ATTRIBUTE_NAME);
 
       if (!hash) {
         if (history) {
@@ -179,7 +179,7 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
       return false;
     }
 
-    var Slide = Components.Slides.getSlides(false, true).find(function (Slide) {
+    var Slide = Components.Elements.getSlides(false).find(function (Slide) {
       return Slide.slide.getAttribute(HASH_ATTRIBUTE_NAME) === hash;
     });
     return Slide ? Slide.index : false;
