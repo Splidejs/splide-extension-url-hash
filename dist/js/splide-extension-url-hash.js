@@ -179,9 +179,9 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
       return false;
     }
 
-    var Slide = Components.Elements.getSlides(false).find(function (Slide) {
+    var Slide = Components.Elements.getSlides(false).filter(function (Slide) {
       return Slide.slide.getAttribute(HASH_ATTRIBUTE_NAME) === hash;
-    });
+    })[0];
     return Slide ? Slide.index : false;
   }
 
