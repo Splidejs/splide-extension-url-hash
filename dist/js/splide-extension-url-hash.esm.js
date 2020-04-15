@@ -99,10 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./src/js/splide-extension-url-hash.js
 /**
  * The extension component for listening to URL hash change
  * and moving a slider to a slide having the hash name in its data attribute.
@@ -127,7 +124,7 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
  * @return {Object} - Extension object.
  */
 
-/* harmony default export */ var splide_extension_url_hash = (function (Splide, Components) {
+/* harmony default export */ __webpack_exports__["default"] = (function (Splide, Components) {
   var URLHash = {
     /**
      * Called when this extension is mounted.
@@ -190,17 +187,6 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
 
   return URLHash;
 });
-// CONCATENATED MODULE: ./build/global/global.js
-/**
- * Set the URL hash extension to the global object.
- *
- * @author    Naotoshi Fujita
- * @copyright Naotoshi Fujita. All rights reserved.
- */
-
-window.splide = window.splide || {};
-window.splide.Extensions = window.splide.Extensions || {};
-window.splide.Extensions.URLHash = splide_extension_url_hash;
 
 /***/ })
 /******/ ]);
