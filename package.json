@@ -1,10 +1,11 @@
 {
   "name": "@splidejs/splide-extension-url-hash",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "The extension of Splide for URL hash navigation.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
   "main": "dist/js/splide-extension-url-hash.js",
+  "module": "dist/js/splide-extension-url-hash.esm.js",
   "keywords": [
     "splide",
     "slider",

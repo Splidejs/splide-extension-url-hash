@@ -1,9 +1,7 @@
-const uglify  = require( 'uglifyjs-webpack-plugin' );
-
 module.exports = {
 	entry: './build/global/global.js',
 	output: {
-		filename: 'splide-extension-url-hash.min.js',
+		filename: 'splide-extension-url-hash.js',
 	},
 	module: {
 		rules: [
@@ -15,7 +13,7 @@ module.exports = {
 		],
 	},
 	optimization: {
-		minimizer: [ new uglify() ],
+		minimize: false,
 	},
 	mode: 'production',
 };
