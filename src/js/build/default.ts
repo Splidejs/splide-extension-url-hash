@@ -1,18 +1,9 @@
-import { ComponentConstructor } from '@splidejs/splide';
 import { URLHash } from '../extensions';
 
 
 declare global {
-	interface Extensions {
-		URLHash?: ComponentConstructor;
-	}
-
-	interface SplideGlobals {
-		Extensions?: Extensions;
-	}
-
 	interface Window {
-		splide: SplideGlobals;
+		splide: Record<string, any>;
 	}
 }
 

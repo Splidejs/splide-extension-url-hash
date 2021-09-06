@@ -5,9 +5,9 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Hash Change</title>
 
-	<link rel="stylesheet" href="../../../node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css">
-	<script type="text/javascript" src="../../../node_modules/@splidejs/splide/dist/js/splide.js"></script>
-	<script type="text/javascript" src="../../../dist/js/splide-extension-url-hash.js"></script>
+	<link rel="stylesheet" href="../../../../node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css">
+	<script type="text/javascript" src="../../../../node_modules/@splidejs/splide/dist/js/splide.js"></script>
+	<script type="text/javascript" src="../../../../dist/js/splide-extension-url-hash.js"></script>
 
 	<script>
 		document.addEventListener( 'DOMContentLoaded', function () {

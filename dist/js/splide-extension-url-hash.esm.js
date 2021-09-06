@@ -197,7 +197,7 @@ var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
  * @param Components - A collection of components.
  * @param options    - Options.
  *
- * @return A Drag component object.
+ * @return A URLHash component object.
  */
 
 function URLHash(Splide, Components, options) {

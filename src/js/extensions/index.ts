@@ -1,1 +1,1 @@
-export * from './UrlHash/URLHash';
+export * from './URLHash/URLHash';

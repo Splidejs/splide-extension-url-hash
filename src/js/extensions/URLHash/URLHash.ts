@@ -5,14 +5,6 @@ import { HASH_ATTRIBUTE_NAME } from './constants';
 
 
 /**
- * The interface for the URLHash component.
- *
- * @since 0.2.0
- */
-export interface URLHashComponent extends BaseComponent {
-}
-
-/**
  * The extension for observing the URL hash change
  * and moving the slider to the slide that is associated with the hash value.
  *
@@ -22,9 +14,9 @@ export interface URLHashComponent extends BaseComponent {
  * @param Components - A collection of components.
  * @param options    - Options.
  *
- * @return A Drag component object.
+ * @return A URLHash component object.
  */
-export function URLHash( Splide: Splide, Components: Components, options: Options ): URLHashComponent {
+export function URLHash( Splide: Splide, Components: Components, options: Options ): BaseComponent {
 	const { on, bind } = EventInterface( Splide );
 	const { setIndex, go } = Components.Controller;
 
@@ -97,7 +89,6 @@ export function URLHash( Splide: Splide, Components: Components, options: Option
 		}
 
 		return -1;
-
 	}
 
 	return {
