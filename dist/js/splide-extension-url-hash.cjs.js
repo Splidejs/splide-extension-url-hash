@@ -4,7 +4,11 @@
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
+'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 /**
  * Checks if the given subject is an array or not.
  *
@@ -12,6 +16,7 @@
  *
  * @return `true` if the subject is an array, or otherwise `false`.
  */
+
 function isArray(subject) {
   return Array.isArray(subject);
 }
@@ -290,4 +295,4 @@ function URLHash(Splide, Components, options) {
   };
 }
 
-export { URLHash };
+exports.URLHash = URLHash;

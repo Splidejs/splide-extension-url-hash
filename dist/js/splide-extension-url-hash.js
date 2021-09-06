@@ -1,196 +1,303 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./src/js/splide-extension-url-hash.js
-/**
- * The extension component for listening to URL hash change
- * and moving a slider to a slide having the hash name in its data attribute.
- *
- * @author    Naotoshi Fujita
- * @copyright Naotoshi Fujita. All rights reserved.
+/*!
+ * @splidejs/splide-extension-url-hash
+ * Version  : 0.2.0
+ * License  : MIT
+ * Copyright: 2021 Naotoshi Fujita
  */
-
-/**
- * The attribute name for assigning a hash value.
- *
- * @type {string}
- */
-var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
-/**
- * The extension component for listening to URL hash change
- * and moving a slider to a slide having the hash name in its data attribute.
- *
- * @param {Splide} Splide     - A Splide instance.
- * @param {Object} Components - An object containing components.
- *
- * @return {Object} - Extension object.
- */
-
-/* harmony default export */ var splide_extension_url_hash = (function (Splide, Components) {
-  var URLHash = {
-    /**
-     * Called when this extension is mounted.
-     */
-    mount: function mount() {
-      Splide.index = hashToIndex(window.location.hash) || Splide.options.start;
-      bind();
-    }
-  };
+(function (factory) {
+  typeof define === 'function' && define.amd ? define(factory) : factory();
+})(function () {
+  'use strict';
   /**
-   * Listen some events.
+   * Checks if the given subject is an array or not.
+   *
+   * @param subject - A subject to check.
+   *
+   * @return `true` if the subject is an array, or otherwise `false`.
    */
 
-  function bind() {
-    // Try to change URL with a hash of the active slide.
-    Splide.on('moved', function (newIndex) {
-      var hash = Components.Elements.getSlide(newIndex).slide.getAttribute(HASH_ATTRIBUTE_NAME);
+  function isArray(subject) {
+    return Array.isArray(subject);
+  }
+  /**
+   * Push the provided value to an array if the value is not an array.
+   *
+   * @param value - A value to push.
+   *
+   * @return An array containing the value, or the value itself if it is already an array.
+   */
 
-      if (!hash) {
+
+  function toArray(value) {
+    return isArray(value) ? value : [value];
+  }
+  /**
+   * The extended `Array#forEach` method that accepts a single value as an argument.
+   *
+   * @param values   - A value or values to iterate over.
+   * @param iteratee - An iteratee function.
+   */
+
+
+  function forEach(values, iteratee) {
+    toArray(values).forEach(iteratee);
+  }
+
+  var EVENT_ACTIVE = 'active';
+  var EVENT_DESTROY = 'destroy';
+  /**
+   * The function that provides interface for internal and native events.
+   *
+   * @since 3.0.0
+   *
+   * @param Splide - A Splide instance.
+   *
+   * @return A collection of interface functions.
+   */
+
+  function EventInterface(Splide) {
+    /**
+     * Holds the event object.
+     */
+    var event = Splide.event;
+    /**
+     * The key for events.
+     */
+
+    var key = {};
+    /**
+     * Stores all handlers that listen to native events.
+     */
+
+    var listeners = [];
+    /**
+     * Registers an event handler with an unique key.
+     * It can only be removed by `off()` method below.
+     *
+     * @param events   - An event name or names separated by spaces. Use a dot(.) to add a namespace.
+     * @param callback - A callback function to register.
+     * @param priority - Optional. A priority number for the order in which the callbacks are invoked.
+     *                   Lower numbers correspond with earlier execution. The default value is 10.
+     */
+
+    function on(events, callback, priority) {
+      event.on(events, callback, key, priority);
+    }
+    /**
+     * Removes event handlers registered by `on()`.
+     *
+     * @param events - An event name or names separated by spaces. Use a dot(.) to add a namespace.
+     */
+
+
+    function off(events) {
+      event.off(events, key);
+    }
+    /**
+     * Listens to native events.
+     * Splide#destory() will remove all registered listeners.
+     *
+     * @param targets  - A target element, the window object or the document object.
+     * @param events   - An event or events to listen to.
+     * @param callback - A callback function.
+     * @param options  - Optional. The options to pass to the `addEventListener` function.
+     */
+
+
+    function bind(targets, events, callback, options) {
+      forEachEvent(targets, events, function (target, event) {
+        listeners.push([target, event, callback, options]);
+        target.addEventListener(event, callback, options);
+      });
+    }
+    /**
+     * Removes the event handler.
+     *
+     * @param targets - A target element, the window object or the document object.
+     * @param events  - An event name or names to remove.
+     */
+
+
+    function unbind(targets, events) {
+      forEachEvent(targets, events, function (target, event) {
+        listeners = listeners.filter(function (listener) {
+          if (listener[0] === target && listener[1] === event) {
+            target.removeEventListener(event, listener[2], listener[3]);
+            return false;
+          }
+
+          return true;
+        });
+      });
+    }
+    /**
+     * Iterates over each target and event.
+     *
+     * @param targets  - A target element, the window object or the document object.
+     * @param events   - An event name or names.
+     * @param iteratee - An iteratee function.
+     */
+
+
+    function forEachEvent(targets, events, iteratee) {
+      forEach(targets, function (target) {
+        if (target) {
+          events.split(' ').forEach(iteratee.bind(null, target));
+        }
+      });
+    }
+    /**
+     * Removes all listeners.
+     */
+
+
+    function destroy() {
+      listeners = listeners.filter(function (data) {
+        return unbind(data[0], data[1]);
+      });
+      event.offBy(key);
+    }
+    /**
+     * Invokes destroy when the slider is destroyed.
+     */
+
+
+    event.on(EVENT_DESTROY, destroy, key);
+    return {
+      on: on,
+      off: off,
+      emit: event.emit,
+      bind: bind,
+      unbind: unbind,
+      destroy: destroy
+    };
+  }
+  /**
+   * Returns the specified attribute value.
+   *
+   * @param elm  - An element.
+   * @param attr - An attribute to get.
+   */
+
+
+  function getAttribute(elm, attr) {
+    return elm.getAttribute(attr);
+  }
+  /**
+   * The data attribute name for URL hash.
+   *
+   * @since 0.2.0
+   */
+
+
+  var HASH_ATTRIBUTE_NAME = 'data-splide-hash';
+  /**
+   * The extension for observing the URL hash change
+   * and moving the slider to the slide that is associated with the hash value.
+   *
+   * @since 0.2.0
+   *
+   * @param Splide     - A Splide instance.
+   * @param Components - A collection of components.
+   * @param options    - Options.
+   *
+   * @return A Drag component object.
+   */
+
+  function URLHash(Splide, Components, options) {
+    var _EventInterface = EventInterface(Splide),
+        on = _EventInterface.on,
+        bind = _EventInterface.bind;
+
+    var _Components$Controlle = Components.Controller,
+        setIndex = _Components$Controlle.setIndex,
+        go = _Components$Controlle.go;
+    /**
+     * Called when the component is constructed.
+     * Determines the initial slide index by the URL hash.
+     */
+
+    function setup() {
+      var index = convertHashToIndex(location.hash);
+      setIndex(index > -1 ? index : options.start || 0);
+    }
+    /**
+     * Called when the component is mounted.
+     */
+
+
+    function mount() {
+      on(EVENT_ACTIVE, onActive);
+      bind(window, 'hashchange', onHashChange);
+    }
+    /**
+     * Called when any slide becomes active.
+     *
+     * @param Slide - A SlideComponent that gets active.
+     */
+
+
+    function onActive(Slide) {
+      var hash = getAttribute(Slide.slide, HASH_ATTRIBUTE_NAME);
+
+      if (hash) {
+        location.hash = hash;
+      } else {
         if (history) {
-          // Remove #.
+          // Removes #.
           history.replaceState(null, null, ' ');
         } else {
-          window.location.hash = '';
+          location.hash = '';
         }
-      } else {
-        window.location.hash = hash;
       }
-    }); // Move the slider to the slide having the new hash.
+    }
+    /**
+     * Called when the URL hash changes.
+     */
 
-    Splide.on('hashchange', function () {
-      var index = hashToIndex(window.location.hash);
 
-      if (index !== false && Splide.index !== index) {
-        Splide.go(index);
+    function onHashChange() {
+      var index = convertHashToIndex(location.hash);
+
+      if (index > -1) {
+        go(index);
       }
-    }, window);
-  }
-  /**
-   * Try to convert hash to the slide index.
-   *
-   * @param {string} hash - A hash value.
-   *
-   * @return {number|boolean} - Converted index on success. false on failure.
-   */
+    }
+    /**
+     * Converts the provided hash string to the slide index.
+     *
+     * @param hash - A hash string to convert.
+     *
+     * @return A slide index on success, or otherwise `-1`.
+     */
 
 
-  function hashToIndex(hash) {
-    hash = hash.replace('#', '');
+    function convertHashToIndex(hash) {
+      hash = hash.replace('#', '');
 
-    if (!hash) {
-      return false;
+      if (hash) {
+        var slides = Components.Elements.slides;
+
+        for (var i = 0; i < slides.length; i++) {
+          if (getAttribute(slides[i], HASH_ATTRIBUTE_NAME) === hash) {
+            return i;
+          }
+        }
+      }
+
+      return -1;
     }
 
-    var Slide = Components.Elements.getSlides(false).filter(function (Slide) {
-      return Slide.slide.getAttribute(HASH_ATTRIBUTE_NAME) === hash;
-    })[0];
-    return Slide ? Slide.index : false;
+    return {
+      setup: setup,
+      mount: mount
+    };
   }
 
-  return URLHash;
+  if (typeof window !== 'undefined') {
+    window.splide = window.splide || {};
+    window.splide.Extensions = window.splide.Extensions || {};
+    window.splide.Extensions.URLHash = URLHash;
+  }
 });
-// CONCATENATED MODULE: ./build/global/global.js
-/**
- * Set the URL hash extension to the global object.
- *
- * @author    Naotoshi Fujita
- * @copyright Naotoshi Fujita. All rights reserved.
- */
-
-window.splide = window.splide || {};
-window.splide.Extensions = window.splide.Extensions || {};
-window.splide.Extensions.URLHash = splide_extension_url_hash;
-
-/***/ })
-/******/ ]);
+//# sourceMappingURL=splide-extension-url-hash.js.map
