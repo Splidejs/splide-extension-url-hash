@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/js/splide-extension-url-hash.cjs.js",
   "module": "dist/js/splide-extension-url-hash.esm.js",
-  "types": "src/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "keywords": [
     "splide",
     "slider",
