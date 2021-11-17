@@ -3,7 +3,7 @@
   <img alt="Splide" src="./images/logo.svg" width="70">
 </a>
 
-<h1>Grid - Splide Extension</h1>
+<h1>URL Hash - Splide Extension</h1>
 
 <p>
 The extension for syncing a <a href="https://github.com/Splidejs/splide">Splide</a> slider with URL hash.
