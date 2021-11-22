@@ -1,10 +1,10 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.0
+ * Version  : 0.2.1
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
-// ../splide/dist/js/splide.esm.js
+// node_modules/@splidejs/splide/dist/js/splide.esm.js
 function isArray(subject) {
   return Array.isArray(subject);
 }
@@ -32,10 +32,10 @@ function EventInterface(Splide22) {
       target.addEventListener(event2, callback, options);
     });
   }
-  function unbind(targets, events) {
+  function unbind(targets, events, callback) {
     forEachEvent(targets, events, (target, event2) => {
       listeners = listeners.filter((listener) => {
-        if (listener[0] === target && listener[1] === event2) {
+        if (listener[0] === target && listener[1] === event2 && (!callback || listener[2] === callback)) {
           target.removeEventListener(event2, listener[2], listener[3]);
           return false;
         }
@@ -65,7 +65,7 @@ function EventInterface(Splide22) {
   };
 }
 
-// ../splide/src/js/utils/dom/getAttribute/getAttribute.ts
+// node_modules/@splidejs/splide/src/js/utils/dom/getAttribute/getAttribute.ts
 function getAttribute2(elm, attr) {
   return elm.getAttribute(attr);
 }
@@ -122,7 +122,7 @@ function URLHash(Splide3, Components2, options) {
 }
 /*!
  * Splide.js
- * Version  : 3.0.0
+ * Version  : 3.6.1
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */

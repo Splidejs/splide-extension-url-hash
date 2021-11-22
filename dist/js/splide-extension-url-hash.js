@@ -1,6 +1,6 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.0
+ * Version  : 0.2.1
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
@@ -44,10 +44,10 @@
       });
     }
 
-    function unbind(targets, events) {
+    function unbind(targets, events, callback) {
       forEachEvent(targets, events, function (target, event2) {
         listeners = listeners.filter(function (listener) {
-          if (listener[0] === target && listener[1] === event2) {
+          if (listener[0] === target && listener[1] === event2 && (!callback || listener[2] === callback)) {
             target.removeEventListener(event2, listener[2], listener[3]);
             return false;
           }
@@ -159,7 +159,7 @@
   }
   /*!
    * Splide.js
-   * Version  : 3.0.0
+   * Version  : 3.6.1
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */

@@ -1,5 +1,4 @@
 import { Splide } from '@splidejs/splide';
-import { fire } from '@splidejs/splide/src/js/test';
 import { buildHtml } from '../../../test/fixtures';
 import { URLHash } from '../URLHash';
 
@@ -53,3 +52,9 @@ describe( 'URLHash', () => {
 		expect( window.location.hash ).toBe( '#7' );
 	} );
 } );
+
+function fire( target: Window | Document | Element, type: string ): Event {
+	const e = new Event( type );
+	target.dispatchEvent( e );
+	return e;
+}
