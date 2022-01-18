@@ -1,8 +1,8 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.1
+ * Version  : 0.2.2
  * License  : MIT
- * Copyright: 2021 Naotoshi Fujita
+ * Copyright: 2022 Naotoshi Fujita
  */
 (function (factory) {
   typeof define === 'function' && define.amd ? define(factory) : factory();
@@ -159,9 +159,9 @@
   }
   /*!
    * Splide.js
-   * Version  : 3.6.1
+   * Version  : 3.6.10
    * License  : MIT
-   * Copyright: 2021 Naotoshi Fujita
+   * Copyright: 2022 Naotoshi Fujita
    */
 
 });

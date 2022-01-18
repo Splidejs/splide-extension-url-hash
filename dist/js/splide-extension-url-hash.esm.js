@@ -1,8 +1,8 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.1
+ * Version  : 0.2.2
  * License  : MIT
- * Copyright: 2021 Naotoshi Fujita
+ * Copyright: 2022 Naotoshi Fujita
  */
 // node_modules/@splidejs/splide/dist/js/splide.esm.js
 function isArray(subject) {
@@ -122,9 +122,9 @@ function URLHash(Splide3, Components2, options) {
 }
 /*!
  * Splide.js
- * Version  : 3.6.1
+ * Version  : 3.6.10
  * License  : MIT
- * Copyright: 2021 Naotoshi Fujita
+ * Copyright: 2022 Naotoshi Fujita
  */
 
 export { URLHash };
