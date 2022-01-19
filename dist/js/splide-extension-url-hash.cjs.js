@@ -1,6 +1,6 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.2
+ * Version  : 0.2.3
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
@@ -126,7 +126,7 @@ function URLHash(Splide3, Components2, options) {
 }
 /*!
  * Splide.js
- * Version  : 3.6.10
+ * Version  : 3.6.11
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
