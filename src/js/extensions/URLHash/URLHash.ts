@@ -17,82 +17,82 @@ import { HASH_ATTRIBUTE_NAME } from './constants';
  * @return A URLHash component object.
  */
 export function URLHash( Splide: Splide, Components: Components, options: Options ): BaseComponent {
-	const { on, bind } = EventInterface( Splide );
-	const { setIndex, go } = Components.Controller;
+  const { on, bind } = EventInterface( Splide );
+  const { setIndex, go } = Components.Controller;
 
-	/**
+  /**
 	 * Called when the component is constructed.
 	 * Determines the initial slide index by the URL hash.
 	 */
-	function setup(): void {
-		const index = convertHashToIndex( location.hash );
-		setIndex( index > -1 ? index : options.start || 0 );
-	}
+  function setup(): void {
+    const index = convertHashToIndex( location.hash );
+    setIndex( index > -1 ? index : options.start || 0 );
+  }
 
-	/**
+  /**
 	 * Called when the component is mounted.
 	 */
-	function mount(): void {
-		on( EVENT_ACTIVE, onActive );
-		bind( window, 'hashchange', onHashChange );
-	}
+  function mount(): void {
+    on( EVENT_ACTIVE, onActive );
+    bind( window, 'hashchange', onHashChange );
+  }
 
-	/**
+  /**
 	 * Called when any slide becomes active.
 	 *
 	 * @param Slide - A SlideComponent that gets active.
 	 */
-	function onActive( Slide: SlideComponent ): void {
-		const hash = getAttribute( Slide.slide, HASH_ATTRIBUTE_NAME );
+  function onActive( Slide: SlideComponent ): void {
+    const hash = getAttribute( Slide.slide, HASH_ATTRIBUTE_NAME );
 
-		if ( hash ) {
-			location.hash = hash;
-		} else {
-			if ( history ) {
-				// Removes #.
-				history.replaceState( null, null, ' ' );
-			} else {
-				location.hash = '';
-			}
-		}
-	}
+    if ( hash ) {
+      location.hash = hash;
+    } else {
+      if ( history ) {
+        // Removes #.
+        history.replaceState( null, null, ' ' );
+      } else {
+        location.hash = '';
+      }
+    }
+  }
 
-	/**
+  /**
 	 * Called when the URL hash changes.
 	 */
-	function onHashChange(): void {
-		const index = convertHashToIndex( location.hash );
+  function onHashChange(): void {
+    const index = convertHashToIndex( location.hash );
 
-		if ( index > -1 ) {
-			go( index );
-		}
-	}
+    if ( index > -1 ) {
+      go( index );
+    }
+  }
 
-	/**
+  /**
 	 * Converts the provided hash string to the slide index.
 	 *
 	 * @param hash - A hash string to convert.
 	 *
 	 * @return A slide index on success, or otherwise `-1`.
 	 */
-	function convertHashToIndex( hash: string ): number {
-		hash = hash.replace( '#', '' );
+  function convertHashToIndex( hash: string ): number {
+    hash = hash.replace( '#', '' );
 
-		if ( hash ) {
-			const { slides } = Components.Elements;
+    if ( hash ) {
+      const { slides } = Components.Elements;
 
-			for ( let i = 0; i < slides.length; i++ ) {
-				if ( getAttribute( slides[ i ], HASH_ATTRIBUTE_NAME ) === hash ) {
-					return i;
-				}
-			}
-		}
+      for ( let i = 0; i < slides.length; i++ ) {
+        if ( getAttribute( slides[ i ], HASH_ATTRIBUTE_NAME ) === hash ) {
+          return i;
+        }
+      }
+    }
 
-		return -1;
-	}
+    return -1;
+  }
 
-	return {
-		setup,
-		mount,
-	}
+  return {
+    setup,
+    mount,
+  };
 }
