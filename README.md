@@ -30,4 +30,4 @@ $ npm install @splidejs/splide-extension-url-hash
 
 ## License
 Splide is released under the MIT license.
-© 2021 Naotoshi Fujita
+© 2022 Naotoshi Fujita

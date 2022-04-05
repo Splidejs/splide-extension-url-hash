@@ -1,81 +1,188 @@
 /*!
  * @splidejs/splide-extension-url-hash
- * Version  : 0.2.3
+ * Version  : 0.3.0
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
-// node_modules/@splidejs/splide/dist/js/splide.esm.js
-function isArray(subject) {
-  return Array.isArray(subject);
+function empty(array) {
+  array.length = 0;
 }
+
+function slice$1(arrayLike, start, end) {
+  return Array.prototype.slice.call(arrayLike, start, end);
+}
+
+function apply$1(func) {
+  return func.bind.apply(func, [null].concat(slice$1(arguments, 1)));
+}
+
+function typeOf$1(type, subject) {
+  return typeof subject === type;
+}
+
+var isArray = Array.isArray;
+apply$1(typeOf$1, "function");
+apply$1(typeOf$1, "string");
+apply$1(typeOf$1, "undefined");
+
 function toArray(value) {
   return isArray(value) ? value : [value];
 }
+
 function forEach(values, iteratee) {
   toArray(values).forEach(iteratee);
 }
-var EVENT_ACTIVE = "active";
-var EVENT_DESTROY = "destroy";
-function EventInterface(Splide22) {
-  const { event } = Splide22;
-  const key = {};
-  let listeners = [];
-  function on(events, callback, priority) {
-    event.on(events, callback, key, priority);
+
+var ownKeys = Object.keys;
+
+function forOwn(object, iteratee, right) {
+  if (object) {
+    var keys = ownKeys(object);
+    keys = right ? keys.reverse() : keys;
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+
+      if (key !== "__proto__") {
+        if (iteratee(object[key], key) === false) {
+          break;
+        }
+      }
+    }
   }
-  function off(events) {
-    event.off(events, key);
-  }
+
+  return object;
+}
+
+function assign(object) {
+  slice$1(arguments, 1).forEach(function (source) {
+    forOwn(source, function (value, key) {
+      object[key] = source[key];
+    });
+  });
+  return object;
+}
+
+function EventBinder() {
+  var listeners = [];
+
   function bind(targets, events, callback, options) {
-    forEachEvent(targets, events, (target, event2) => {
-      listeners.push([target, event2, callback, options]);
-      target.addEventListener(event2, callback, options);
+    forEachEvent(targets, events, function (target, event, namespace) {
+      var isEventTarget = ("addEventListener" in target);
+      var remover = isEventTarget ? target.removeEventListener.bind(target, event, callback, options) : target["removeListener"].bind(target, callback);
+      isEventTarget ? target.addEventListener(event, callback, options) : target["addListener"](callback);
+      listeners.push([target, event, namespace, callback, remover]);
     });
   }
+
   function unbind(targets, events, callback) {
-    forEachEvent(targets, events, (target, event2) => {
-      listeners = listeners.filter((listener) => {
-        if (listener[0] === target && listener[1] === event2 && (!callback || listener[2] === callback)) {
-          target.removeEventListener(event2, listener[2], listener[3]);
+    forEachEvent(targets, events, function (target, event, namespace) {
+      listeners = listeners.filter(function (listener) {
+        if (listener[0] === target && listener[1] === event && listener[2] === namespace && (!callback || listener[3] === callback)) {
+          listener[4]();
           return false;
         }
+
         return true;
       });
     });
   }
+
+  function dispatch(target, type, detail) {
+    var e;
+    var bubbles = true;
+
+    if (typeof CustomEvent === "function") {
+      e = new CustomEvent(type, {
+        bubbles: bubbles,
+        detail: detail
+      });
+    } else {
+      e = document.createEvent("CustomEvent");
+      e.initCustomEvent(type, bubbles, false, detail);
+    }
+
+    target.dispatchEvent(e);
+    return e;
+  }
+
   function forEachEvent(targets, events, iteratee) {
-    forEach(targets, (target) => {
-      if (target) {
-        events.split(" ").forEach(iteratee.bind(null, target));
-      }
+    forEach(targets, function (target) {
+      target && forEach(events, function (events2) {
+        events2.split(" ").forEach(function (eventNS) {
+          var fragment = eventNS.split(".");
+          iteratee(target, fragment[0], fragment[1]);
+        });
+      });
     });
   }
+
   function destroy() {
-    listeners = listeners.filter((data) => unbind(data[0], data[1]));
-    event.offBy(key);
+    listeners.forEach(function (data) {
+      data[4]();
+    });
+    empty(listeners);
   }
-  event.on(EVENT_DESTROY, destroy, key);
+
   return {
-    on,
-    off,
-    emit: event.emit,
-    bind,
-    unbind,
-    destroy
+    bind: bind,
+    unbind: unbind,
+    dispatch: dispatch,
+    destroy: destroy
   };
 }
+var EVENT_ACTIVE = "active";
+var EVENT_DESTROY = "destroy";
 
-// node_modules/@splidejs/splide/src/js/utils/dom/getAttribute/getAttribute.ts
-function getAttribute2(elm, attr) {
+function EventInterface(Splide2) {
+  var bus = Splide2 ? Splide2.event.bus : document.createDocumentFragment();
+  var binder = EventBinder();
+
+  function on(events, callback) {
+    binder.bind(bus, toArray(events).join(" "), function (e) {
+      callback.apply(callback, isArray(e.detail) ? e.detail : []);
+    });
+  }
+
+  function emit(event) {
+    binder.dispatch(bus, event, slice$1(arguments, 1));
+  }
+
+  if (Splide2) {
+    Splide2.event.on(EVENT_DESTROY, binder.destroy);
+  }
+
+  return assign(binder, {
+    bus: bus,
+    on: on,
+    off: apply$1(binder.unbind, bus),
+    emit: emit
+  });
+}
+
+function slice(arrayLike, start, end) {
+  return Array.prototype.slice.call(arrayLike, start, end);
+}
+
+function apply(func) {
+  return func.bind(null, ...slice(arguments, 1));
+}
+
+function typeOf(type, subject) {
+  return typeof subject === type;
+}
+apply(typeOf, "function");
+apply(typeOf, "string");
+apply(typeOf, "undefined");
+
+function getAttribute(elm, attr) {
   return elm.getAttribute(attr);
 }
 
-// src/js/extensions/URLHash/constants.ts
-var HASH_ATTRIBUTE_NAME = "data-splide-hash";
+const HASH_ATTRIBUTE_NAME = "data-splide-hash";
 
-// src/js/extensions/URLHash/URLHash.ts
-function URLHash(Splide3, Components2, options) {
-  const { on, bind } = EventInterface(Splide3);
+function URLHash(Splide2, Components2, options) {
+  const { on, bind } = EventInterface(Splide2);
   const { setIndex, go } = Components2.Controller;
   function setup() {
     const index = convertHashToIndex(location.hash);
@@ -85,8 +192,8 @@ function URLHash(Splide3, Components2, options) {
     on(EVENT_ACTIVE, onActive);
     bind(window, "hashchange", onHashChange);
   }
-  function onActive(Slide2) {
-    const hash = getAttribute2(Slide2.slide, HASH_ATTRIBUTE_NAME);
+  function onActive(Slide) {
+    const hash = getAttribute(Slide.slide, HASH_ATTRIBUTE_NAME);
     if (hash) {
       location.hash = hash;
     } else {
@@ -108,7 +215,7 @@ function URLHash(Splide3, Components2, options) {
     if (hash) {
       const { slides } = Components2.Elements;
       for (let i = 0; i < slides.length; i++) {
-        if (getAttribute2(slides[i], HASH_ATTRIBUTE_NAME) === hash) {
+        if (getAttribute(slides[i], HASH_ATTRIBUTE_NAME) === hash) {
           return i;
         }
       }
@@ -120,11 +227,5 @@ function URLHash(Splide3, Components2, options) {
     mount
   };
 }
-/*!
- * Splide.js
- * Version  : 3.6.11
- * License  : MIT
- * Copyright: 2022 Naotoshi Fujita
- */
 
 export { URLHash };
